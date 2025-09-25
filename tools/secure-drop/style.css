@@ -19,6 +19,32 @@ body {
     padding: 20px;
 }
 
+.nav-header {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.back-link {
+    color: #b3b3b3;
+    text-decoration: none;
+    font-size: 12px;
+    transition: color 0.2s ease;
+}
+
+.back-link:hover,
+.back-link:visited,
+.back-link:active {
+    color: #e6e6e6;
+}
+
+.back-link:visited {
+    color: #b3b3b3;
+}
+
+.back-link:visited:hover {
+    color: #e6e6e6;
+}
+
 header {
     text-align: center;
     margin-bottom: 40px;

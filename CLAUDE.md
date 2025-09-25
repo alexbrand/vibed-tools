@@ -26,6 +26,45 @@ Each tool lives in `tools/{tool-name}/` with:
 - `style.css` - Tool-specific styles
 - Self-contained with no build dependencies
 
+### Navigation Requirements
+**All tools MUST include a back navigation link to the index page.**
+
+#### HTML Structure (add after opening window div):
+```html
+<div class="nav-header">
+    <a href="/" class="back-link">← BACK TO TOOLS</a>
+</div>
+```
+
+#### Required CSS (add to style.css):
+```css
+.nav-header {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.back-link {
+    color: #b3b3b3;
+    text-decoration: none;
+    font-size: 0.8rem; /* or 12px for smaller tools */
+    transition: color 0.2s ease;
+}
+
+.back-link:hover,
+.back-link:visited,
+.back-link:active {
+    color: #e6e6e6;
+}
+
+.back-link:visited {
+    color: #b3b3b3;
+}
+
+.back-link:visited:hover {
+    color: #e6e6e6;
+}
+```
+
 ## Common Commands
 
 ### Build and Deploy
