@@ -146,3 +146,4 @@ Tools use responsive design patterns with:
 - Terminal-inspired spacing
 - ASCII-style separators where appropriate
 - No gradients, shadows, or modern effects
+- when adding a tool, make sure to update the index page and the tool count accordingly.

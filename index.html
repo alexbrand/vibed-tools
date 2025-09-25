@@ -61,6 +61,61 @@
             line-height: 1.2;
         }
 
+        .search-section {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #b3b3b3;
+            padding-bottom: 20px;
+        }
+
+        .input-line {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .prompt {
+            color: #e6e6e6;
+            margin-right: 5px;
+            font-weight: bold;
+            min-width: 20px;
+        }
+
+        .command {
+            color: #b3b3b3;
+            margin-right: 10px;
+            min-width: 60px;
+        }
+
+        #searchInput {
+            background: #000000;
+            color: #e6e6e6;
+            border: none;
+            border-bottom: 1px solid #b3b3b3;
+            padding: 5px 0;
+            font-size: 1rem;
+            font-family: inherit;
+            flex: 1;
+            outline: none;
+            max-width: 300px;
+        }
+
+        #searchInput::placeholder {
+            color: #808080;
+        }
+
+        #searchInput:focus {
+            border-bottom-color: #e6e6e6;
+        }
+
+        .search-stats {
+            color: #b3b3b3;
+            font-size: 0.9rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
         .tool-list {
             margin-bottom: 30px;
         }
@@ -75,7 +130,8 @@
             display: block;
         }
 
-        .tool-entry:hover {
+        .tool-entry:hover,
+        .tool-entry.selected {
             border-color: #e6e6e6;
             background: #1a1a1a;
         }
@@ -166,6 +222,22 @@
                 letter-spacing: 1px;
             }
 
+            .input-line {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+
+            .prompt, .command {
+                margin-right: 0;
+            }
+
+            #searchInput {
+                max-width: 100%;
+                border: 1px solid #b3b3b3;
+                padding: 8px;
+            }
+
             .tool-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -187,7 +259,19 @@
                 <p class="subtitle">Client-side only - everything runs in browser</p>
             </div>
 
-            <div class="tool-list">
+            <div class="search-section">
+                <div class="input-line">
+                    <span class="prompt">$ </span>
+                    <span class="command">search</span>
+                    <input type="text" id="searchInput" placeholder="find_tool" autocomplete="off">
+                </div>
+                <div id="searchStats" class="search-stats hidden">
+                    <span class="prompt">> </span>
+                    <span id="searchCount">0</span> tools found
+                </div>
+            </div>
+
+            <div class="tool-list" id="toolList">
                 <a href="/hello-world/" class="tool-entry">
                     <div class="tool-header">
                         <div class="tool-name">HELLO_WORLD</div>
@@ -274,5 +358,265 @@
             </div>
         </div>
     </div>
+
+    <script>
+        class FuzzyToolSearch {
+            constructor() {
+                this.searchInput = document.getElementById('searchInput');
+                this.toolList = document.getElementById('toolList');
+                this.searchStats = document.getElementById('searchStats');
+                this.searchCount = document.getElementById('searchCount');
+
+                this.tools = [];
+                this.originalToolsHtml = '';
+                this.selectedIndex = -1;
+
+                this.initializeSearch();
+            }
+
+            initializeSearch() {
+                // Store original tools HTML and extract tool data
+                this.originalToolsHtml = this.toolList.innerHTML;
+                this.extractToolData();
+
+                // Add event listener for search input
+                this.searchInput.addEventListener('input', (e) => this.handleSearch(e.target.value));
+
+                // Add keyboard shortcuts
+                this.searchInput.addEventListener('keydown', (e) => this.handleKeydown(e));
+
+                // Auto-focus search when user starts typing
+                document.addEventListener('keydown', (e) => this.handleGlobalKeydown(e));
+
+                // Initial count
+                this.updateSearchStats(this.tools.length, this.tools.length);
+            }
+
+            extractToolData() {
+                const toolEntries = this.toolList.querySelectorAll('.tool-entry');
+                this.tools = Array.from(toolEntries).map(entry => {
+                    const toolName = entry.querySelector('.tool-name').textContent;
+                    const description = entry.querySelector('.tool-description').textContent;
+                    const url = entry.getAttribute('href');
+
+                    return {
+                        name: toolName,
+                        description: description,
+                        url: url,
+                        element: entry.outerHTML,
+                        searchText: `${toolName} ${description}`.toLowerCase()
+                    };
+                });
+            }
+
+            handleSearch(query) {
+                const trimmedQuery = query.trim().toLowerCase();
+
+                if (!trimmedQuery) {
+                    // Show all tools if search is empty
+                    this.toolList.innerHTML = this.originalToolsHtml;
+                    this.updateSearchStats(this.tools.length, this.tools.length);
+                    this.searchStats.classList.add('hidden');
+                    return;
+                }
+
+                const filteredTools = this.fuzzySearch(trimmedQuery);
+                this.displayResults(filteredTools);
+                this.updateSearchStats(filteredTools.length, this.tools.length);
+                this.searchStats.classList.remove('hidden');
+                this.selectedIndex = -1; // Reset selection on new search
+            }
+
+            fuzzySearch(query) {
+                return this.tools
+                    .map(tool => ({
+                        ...tool,
+                        score: this.calculateFuzzyScore(query, tool.searchText, tool.name.toLowerCase())
+                    }))
+                    .filter(tool => tool.score > 0)
+                    .sort((a, b) => b.score - a.score);
+            }
+
+            calculateFuzzyScore(query, searchText, toolName) {
+                // Exact substring match gets highest score
+                if (searchText.includes(query)) {
+                    return toolName.includes(query) ? 1000 : 800;
+                }
+
+                // Word boundary matches (e.g., "base" matches "base64" but not "database")
+                const words = searchText.split(/[\s_-]+/);
+                for (let word of words) {
+                    if (word.startsWith(query)) {
+                        return 600; // High score for word starts
+                    }
+                }
+
+                // For short queries (3 chars or less), be more strict
+                if (query.length <= 3) {
+                    // Only allow if query starts a significant word
+                    const significantWords = toolName.toLowerCase().split(/[\s_-]+/);
+                    for (let word of significantWords) {
+                        if (word.startsWith(query) && word.length >= 3) {
+                            return 400;
+                        }
+                    }
+                    return 0; // No fuzzy matching for short queries
+                }
+
+                // Fuzzy matching for longer queries (4+ chars)
+                let score = 0;
+                let queryIndex = 0;
+                let consecutiveMatches = 0;
+                let wordBoundaryMatches = 0;
+
+                for (let i = 0; i < searchText.length && queryIndex < query.length; i++) {
+                    if (searchText[i] === query[queryIndex]) {
+                        queryIndex++;
+                        consecutiveMatches++;
+
+                        // Bonus for consecutive matches
+                        score += consecutiveMatches * 15;
+
+                        // Big bonus if match is at word boundary
+                        if (i === 0 || searchText[i - 1] === ' ' || searchText[i - 1] === '_' || searchText[i - 1] === '-') {
+                            score += 100;
+                            wordBoundaryMatches++;
+                        }
+                    } else {
+                        consecutiveMatches = 0;
+                    }
+                }
+
+                // Must match all characters in query
+                if (queryIndex === query.length) {
+                    // Require at least 50% word boundary matches for longer queries
+                    const requiredBoundaryMatches = Math.ceil(query.length * 0.4);
+                    if (wordBoundaryMatches < requiredBoundaryMatches) {
+                        return 0;
+                    }
+
+                    // Bonus for shorter strings (more relevant)
+                    score += Math.max(0, 50 - searchText.length);
+                    return Math.max(score, 100); // Minimum score for valid fuzzy matches
+                }
+
+                return 0;
+            }
+
+            displayResults(filteredTools) {
+                if (filteredTools.length === 0) {
+                    this.toolList.innerHTML = `
+                        <div style="color: #808080; text-align: center; padding: 40px; font-style: italic;">
+                            No tools match "${this.searchInput.value}"
+                        </div>
+                    `;
+                } else {
+                    this.toolList.innerHTML = filteredTools.map(tool => tool.element).join('');
+                }
+                this.updateSelection();
+            }
+
+            updateSearchStats(found, total) {
+                this.searchCount.textContent = found;
+            }
+
+            handleKeydown(e) {
+                const visibleTools = this.toolList.querySelectorAll('.tool-entry');
+
+                switch(e.key) {
+                    case 'Escape':
+                        this.searchInput.value = '';
+                        this.handleSearch('');
+                        this.searchInput.blur();
+                        this.selectedIndex = -1;
+                        this.updateSelection();
+                        break;
+
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        if (visibleTools.length > 0) {
+                            this.selectedIndex = (this.selectedIndex + 1) % visibleTools.length;
+                            this.updateSelection();
+                        }
+                        break;
+
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        if (visibleTools.length > 0) {
+                            this.selectedIndex = this.selectedIndex <= 0 ?
+                                visibleTools.length - 1 : this.selectedIndex - 1;
+                            this.updateSelection();
+                        }
+                        break;
+
+                    case 'Enter':
+                        e.preventDefault();
+                        if (visibleTools.length > 0) {
+                            let targetTool;
+                            if (this.selectedIndex >= 0 && this.selectedIndex < visibleTools.length) {
+                                // Navigate to selected tool
+                                targetTool = visibleTools[this.selectedIndex];
+                            } else if (visibleTools.length === 1) {
+                                // Navigate to single result
+                                targetTool = visibleTools[0];
+                            }
+
+                            if (targetTool) {
+                                const toolUrl = targetTool.getAttribute('href');
+                                if (toolUrl) {
+                                    window.location.href = toolUrl;
+                                }
+                            }
+                        }
+                        break;
+                }
+            }
+
+            updateSelection() {
+                const visibleTools = this.toolList.querySelectorAll('.tool-entry');
+
+                // Remove previous selection
+                visibleTools.forEach(tool => tool.classList.remove('selected'));
+
+                // Add selection to current index
+                if (this.selectedIndex >= 0 && this.selectedIndex < visibleTools.length) {
+                    const selectedTool = visibleTools[this.selectedIndex];
+                    selectedTool.classList.add('selected');
+
+                    // Scroll into view if needed
+                    selectedTool.scrollIntoView({
+                        block: 'nearest',
+                        behavior: 'smooth'
+                    });
+                }
+            }
+
+            handleGlobalKeydown(e) {
+                // Handle navigation keys globally when search is not focused
+                if (document.activeElement !== this.searchInput &&
+                    ['ArrowUp', 'ArrowDown', 'Enter', 'Escape'].includes(e.key)) {
+                    this.searchInput.focus();
+                    this.handleKeydown(e);
+                    return;
+                }
+
+                // Auto-focus search when typing (but not on special keys or shortcuts)
+                if (!e.ctrlKey && !e.metaKey && !e.altKey &&
+                    e.key.length === 1 &&
+                    document.activeElement !== this.searchInput &&
+                    !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName) &&
+                    !['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter', 'Escape', 'Tab'].includes(e.key)) {
+
+                    this.searchInput.focus();
+                    // Let the character be typed naturally
+                }
+            }
+        }
+
+        // Initialize search when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new FuzzyToolSearch();
+        });
+    </script>
 </body>
 </html>
