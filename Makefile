@@ -6,7 +6,7 @@ GIT_SHA := $(shell git rev-parse --short HEAD)
 CURRENT_VERSION := $(shell cat VERSION 2>/dev/null || echo "1")
 TAG ?= $(GIT_SHA)
 FULL_IMAGE := $(REPO):$(TAG)
-VERSION_IMAGE := $(REPO):v$(CURRENT_VERSION)
+VERSION_IMAGE := $(REPO):$(CURRENT_VERSION)
 PLATFORM ?= linux/amd64
 
 # Default target
