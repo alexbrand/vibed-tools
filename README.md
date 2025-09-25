@@ -1,6 +1,6 @@
 # Vibed Tools
 
-A collection of "vibe-coded" JavaScript/browser-based tools served from a single container at `tools.apps.alexbrand.dev`.
+A collection of "vibe-coded" JavaScript/browser-based tools served from a single container at [tools.apps.alexbrand.dev](https://tools.apps.alexbrand.dev).
 
 ## Philosophy
 
@@ -53,10 +53,6 @@ This repository integrates with the [alexbrand-cloud](https://github.com/alexbra
 - **Mobile-friendly**: Responsive design encouraged
 - **Fast loading**: Minimal dependencies, inline styles/scripts when possible
 - **Vibe first**: Function over form, but make it feel good to use
-
-## Current Tools
-
-*No tools yet - start vibing!*
 
 ## Contributing
 
