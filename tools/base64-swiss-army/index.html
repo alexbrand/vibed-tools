@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 Swiss Army - Vibed Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="terminal">
+        <div class="window">
+            <h1>BASE64 SWISS ARMY</h1>
+            <p class="subtitle">Encode/decode base64 with auto-detection and inline preview</p>
+
+            <div class="command-section">
+                <div class="input-section">
+                    <div class="input-line">
+                        <span class="prompt">$ </span>
+                        <span class="command">input_data</span>
+                    </div>
+                    <textarea id="inputData" placeholder="Paste your data here (text, base64, file upload, etc.)..."></textarea>
+                </div>
+
+                <div class="file-upload">
+                    <div class="input-line">
+                        <span class="prompt">$ </span>
+                        <label for="fileInput" class="file-label">[UPLOAD FILE]</label>
+                        <input type="file" id="fileInput" hidden>
+                        <span id="fileName" class="file-name"></span>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button id="encodeBtn">[ENCODE]</button>
+                    <button id="decodeBtn">[DECODE]</button>
+                    <button id="autoDetectBtn">[AUTO DETECT]</button>
+                    <button id="clearBtn">[CLEAR]</button>
+                </div>
+            </div>
+
+            <div id="detection" class="detection hidden">
+                <div class="input-line">
+                    <span class="prompt">> </span>
+                    <span id="detectionResult"></span>
+                </div>
+            </div>
+
+            <div id="preview" class="preview hidden">
+                <div class="input-line">
+                    <span class="prompt">> </span>
+                    <span>PREVIEW:</span>
+                </div>
+                <div id="previewContent"></div>
+            </div>
+
+            <div id="output" class="output hidden">
+                <div class="input-line">
+                    <span class="prompt">> </span>
+                    <span>OUTPUT:</span>
+                    <button id="copyBtn" class="copy-btn">[COPY]</button>
+                </div>
+                <textarea id="outputData" readonly></textarea>
+            </div>
+
+            <div class="status">
+                <p>TOOL_URL: tools.apps.alexbrand.dev/base64-swiss-army/</p>
+                <p>STATUS: <span id="status">READY</span></p>
+                <p>DATA_TYPE: <span id="dataType">UNKNOWN</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
