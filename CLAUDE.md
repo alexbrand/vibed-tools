@@ -86,8 +86,8 @@ Tools use responsive design patterns with:
 
 ### Color Scheme
 - Pure black background (#000000)
-- Bright green text (#00ff00) for primary content
-- Dimmed green (#00aa00) for secondary elements
+- Primary text: soft white (#e6e6e6) for readability on black
+- Secondary elements: dim white/gray (#b3b3b3)
 - Red (#ff0000) for errors
 - Gray (#808080) for muted text
 
@@ -97,10 +97,10 @@ Tools use responsive design patterns with:
 - Consistent spacing and alignment
 
 ### Interactive Elements
-- Minimal borders using terminal green
+- Minimal borders using dim white (#b3b3b3)
 - Button text like `[ACTION]` or `> ACTION`
 - Input prompts: `$ ` or `>> ` prefixes
-- Black backgrounds with green borders/text
+- Black backgrounds with white borders/text
 
 ### Layout Philosophy
 - Clean, minimal interfaces
