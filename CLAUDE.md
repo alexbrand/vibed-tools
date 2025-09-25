@@ -23,7 +23,7 @@ Vibed Tools is a collection of self-contained browser-based utilities served fro
 Each tool lives in `tools/{tool-name}/` with:
 - `index.html` - Main tool interface
 - `script.js` - Tool logic (vanilla JavaScript)
-- `style.css` - Tool-specific styles
+- `style.css` - Tool-specific style overrides (uses common.css base)
 - Self-contained with no build dependencies
 
 ### Navigation Requirements
@@ -36,34 +36,13 @@ Each tool lives in `tools/{tool-name}/` with:
 </div>
 ```
 
-#### Required CSS (add to style.css):
-```css
-.nav-header {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.back-link {
-    color: #b3b3b3;
-    text-decoration: none;
-    font-size: 0.8rem; /* or 12px for smaller tools */
-    transition: color 0.2s ease;
-}
-
-.back-link:hover,
-.back-link:visited,
-.back-link:active {
-    color: #e6e6e6;
-}
-
-.back-link:visited {
-    color: #b3b3b3;
-}
-
-.back-link:visited:hover {
-    color: #e6e6e6;
-}
+#### Required Stylesheets (add to <head>):
+```html
+<link rel="stylesheet" href="/common.css">
+<link rel="stylesheet" href="style.css">
 ```
+
+The common.css provides all base terminal aesthetics. Tool-specific style.css should only contain overrides.
 
 ## Common Commands
 
@@ -86,13 +65,28 @@ make REGISTRY=custom.io push        # Override registry
 
 ### Adding New Tools
 1. Create directory: `tools/{tool-name}/`
-2. Add `index.html`, `script.js`, `style.css`
-3. Update root `index.html` to list the new tool
-4. Deploy with `make push`
+2. Add `index.html` with common.css and tool-specific style.css imports
+3. Add `script.js` for tool logic
+4. Add `style.css` for tool-specific overrides only
+5. Update root `index.html` to list the new tool
+6. Deploy with `make push`
+
+### Common Stylesheet Architecture
+All tools use a shared stylesheet (`/common.css`) that provides:
+- Complete terminal aesthetic (colors, typography, layout)
+- All form elements, buttons, navigation styling
+- Responsive mobile behavior
+- Base component styles
+
+Tool-specific `style.css` files should **only** contain:
+- Layout overrides (max-width adjustments)
+- Tool-specific component styles not covered by common.css
+- Custom element styling unique to that tool
 
 ### nginx Configuration
 The `nginx.conf` handles:
 - Tool directory routing with regex patterns
+- Common stylesheet serving from root (`/common.css`)
 - Proper MIME types for static assets
 - Security headers (selectively applied)
 - Cache control (5min for assets, nosniff for HTML)
