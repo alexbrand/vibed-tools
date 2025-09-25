@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Table Sorter - Vibed Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="terminal">
+        <div class="window">
+            <h1>MARKDOWN TABLE SORTER</h1>
+            <p class="subtitle">Sort your markdown tables by any column</p>
+
+            <div class="input-section">
+                <label for="tableInput">$ INPUT TABLE:</label>
+                <textarea id="tableInput" placeholder="| column_1 | column_2 | column_3 |
+|----------|----------|----------|
+| value_a  | 123      | 2023-01-15 |
+| value_b  | 45       | 2023-02-20 |"></textarea>
+            </div>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label for="columnSelect">SORT_COLUMN:</label>
+                    <select id="columnSelect" disabled>
+                        <option value="">-- SELECT --</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="sortOrder">SORT_ORDER:</label>
+                    <select id="sortOrder">
+                        <option value="asc">ASC</option>
+                        <option value="desc">DESC</option>
+                    </select>
+                </div>
+
+                <button id="sortBtn" disabled>[EXECUTE]</button>
+            </div>
+
+            <div class="output-section">
+                <label for="tableOutput">$ OUTPUT:</label>
+                <textarea id="tableOutput" readonly placeholder="> awaiting_table_data..."></textarea>
+                <button id="copyBtn" class="copy-btn" disabled>[COPY]</button>
+            </div>
+
+            <div class="status">
+                <p>TOOL_URL: tools.apps.alexbrand.dev/markdown-table-sorter/</p>
+                <p>STATUS: ONLINE</p>
+                <p>FEATURES: SMART_SORT | PRESERVE_HEADERS | MARKDOWN_LINKS</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

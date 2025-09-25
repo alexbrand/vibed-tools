@@ -4,35 +4,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const greetingDiv = document.getElementById('greeting');
 
     const greetings = [
-        "Hello there, {name}! 👋",
-        "Hey {name}! Welcome to the vibes! ✨",
-        "Greetings, {name}! You're awesome! 🚀",
-        "What's up, {name}? Looking good! 😎",
-        "Hello {name}! Ready to vibe? 🌟"
+        "> Hello there, {name}!",
+        "> Hey {name}! Welcome to the system.",
+        "> Greetings, {name}! Access granted.",
+        "> What's up, {name}? Connection established.",
+        "> Hello {name}! Ready to execute commands?"
     ];
 
     function showGreeting() {
         const name = nameInput.value.trim();
 
         if (!name) {
+            showError("ERROR: Name parameter required");
             nameInput.focus();
-            nameInput.classList.add('shake');
-            setTimeout(() => nameInput.classList.remove('shake'), 500);
             return;
         }
 
         const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
-        const personalizedGreeting = randomGreeting.replace('{name}', name);
+        const personalizedGreeting = randomGreeting.replace('{name}', name.toUpperCase());
 
         greetingDiv.textContent = personalizedGreeting;
-        greetingDiv.classList.remove('hidden');
-        greetingDiv.classList.add('fade-in');
+        greetingDiv.classList.remove('hidden', 'error');
 
-        // Add some celebratory animation
-        greetingDiv.style.transform = 'scale(1.05)';
-        setTimeout(() => {
-            greetingDiv.style.transform = 'scale(1)';
-        }, 200);
+        // Clear input after successful execution
+        nameInput.value = '';
+    }
+
+    function showError(message) {
+        greetingDiv.textContent = message;
+        greetingDiv.classList.remove('hidden');
+        greetingDiv.classList.add('error');
     }
 
     // Event listeners
@@ -46,20 +47,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Focus input on load
     nameInput.focus();
-
-    // Add some fun hover effects
-    const card = document.querySelector('.card');
-    card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-2px)';
-    });
-
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'translateY(0)';
-    });
-
-    // Animate vibe meter
-    const vibeMeter = document.querySelector('.vibe-meter');
-    setInterval(() => {
-        vibeMeter.style.opacity = Math.random() > 0.5 ? '0.7' : '1';
-    }, 2000);
 });

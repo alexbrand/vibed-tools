@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibed Tools - Developer Utilities</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
+        body {
+            background: #000000;
+            color: #00ff00;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .terminal {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .window {
+            background: #000000;
+            border: 1px solid #00ff00;
+            padding: 30px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #00aa00;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #00ff00;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            color: #00aa00;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .ascii-border {
+            color: #00aa00;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 0.8rem;
+            line-height: 1.2;
+        }
+
+        .tool-list {
+            margin-bottom: 30px;
+        }
+
+        .tool-entry {
+            background: #000000;
+            border: 1px solid #00aa00;
+            margin-bottom: 15px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .tool-entry:hover {
+            border-color: #00ff00;
+            background: #001100;
+        }
+
+        .tool-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #00aa00;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tool-name {
+            color: #00ff00;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .tool-status {
+            color: #00aa00;
+            font-size: 0.8rem;
+        }
+
+        .tool-body {
+            padding: 15px 20px;
+        }
+
+        .tool-description {
+            color: #00aa00;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .tool-path {
+            color: #808080;
+            font-size: 0.8rem;
+        }
+
+        .system-info {
+            border-top: 1px solid #00aa00;
+            padding-top: 20px;
+            margin-top: 30px;
+        }
+
+        .info-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
+        }
+
+        .info-label {
+            color: #00aa00;
+        }
+
+        .info-value {
+            color: #00ff00;
+        }
+
+        .github-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .github-link a {
+            color: #808080;
+            text-decoration: none;
+            font-size: 0.8rem;
+            border: 1px solid #404040;
+            padding: 8px 16px;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+
+        .github-link a:hover {
+            color: #00ff00;
+            border-color: #00aa00;
+        }
+
+        @media (max-width: 768px) {
+            .window {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.4rem;
+                letter-spacing: 1px;
+            }
+
+            .tool-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+
+            .info-line {
+                flex-direction: column;
+                gap: 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="window">
+            <div class="header">
+                <h1>VIBED TOOLS</h1>
+                <p class="subtitle">Terminal-based developer utilities and web tools</p>
+            </div>
+
+            <div class="ascii-border">
+                ================================================================
+                                    AVAILABLE TOOLS
+                ================================================================
+            </div>
+
+            <div class="tool-list">
+                <a href="/hello-world/" class="tool-entry">
+                    <div class="tool-header">
+                        <div class="tool-name">HELLO_WORLD</div>
+                        <div class="tool-status">[ONLINE]</div>
+                    </div>
+                    <div class="tool-body">
+                        <div class="tool-description">
+                            A simple greeting tool to test the platform and demonstrate basic functionality.
+                        </div>
+                        <div class="tool-path">$ cd /hello-world/</div>
+                    </div>
+                </a>
+
+                <a href="/markdown-table-sorter/" class="tool-entry">
+                    <div class="tool-header">
+                        <div class="tool-name">MARKDOWN_TABLE_SORTER</div>
+                        <div class="tool-status">[ONLINE]</div>
+                    </div>
+                    <div class="tool-body">
+                        <div class="tool-description">
+                            Sort markdown tables by any column with intelligent data type detection.
+                            Supports text, numbers, dates, and markdown links.
+                        </div>
+                        <div class="tool-path">$ cd /markdown-table-sorter/</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="ascii-border">
+                ================================================================
+            </div>
+
+            <div class="system-info">
+                <div class="info-line">
+                    <span class="info-label">SYSTEM_STATUS:</span>
+                    <span class="info-value">OPERATIONAL</span>
+                </div>
+                <div class="info-line">
+                    <span class="info-label">TOOLS_LOADED:</span>
+                    <span class="info-value">2</span>
+                </div>
+                <div class="info-line">
+                    <span class="info-label">BASE_URL:</span>
+                    <span class="info-value">tools.apps.alexbrand.dev</span>
+                </div>
+                <div class="info-line">
+                    <span class="info-label">ARCHITECTURE:</span>
+                    <span class="info-value">NGINX/DOCKER/AMD64</span>
+                </div>
+            </div>
+
+            <div class="github-link">
+                <a href="https://github.com/alexbrand/vibed-tools" target="_blank">
+                    [VIEW_SOURCE]
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

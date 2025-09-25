@@ -7,22 +7,25 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <h1>🌍 Hello World!</h1>
+    <div class="terminal">
+        <div class="window">
+            <h1>HELLO WORLD</h1>
             <p class="subtitle">Your first vibed tool is working perfectly</p>
 
-            <div class="interactive-section">
-                <input type="text" id="nameInput" placeholder="Enter your name..." maxlength="50">
-                <button id="greetBtn">Say Hello</button>
+            <div class="command-section">
+                <div class="input-line">
+                    <span class="prompt">$ </span>
+                    <input type="text" id="nameInput" placeholder="enter_name" maxlength="50">
+                </div>
+                <button id="greetBtn">[EXECUTE]</button>
             </div>
 
-            <div id="greeting" class="greeting hidden"></div>
+            <div id="greeting" class="output hidden"></div>
 
-            <div class="info">
-                <p><strong>Tool URL:</strong> <code>tools.apps.alexbrand.dev/hello-world/</code></p>
-                <p><strong>Status:</strong> <span class="status-badge">🟢 Live</span></p>
-                <p><strong>Vibe Level:</strong> <span class="vibe-meter">✨✨✨</span></p>
+            <div class="status">
+                <p>TOOL_URL: tools.apps.alexbrand.dev/hello-world/</p>
+                <p>STATUS: ONLINE</p>
+                <p>VIBE_LEVEL: MAXIMUM</p>
             </div>
         </div>
     </div>
