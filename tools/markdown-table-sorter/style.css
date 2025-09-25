@@ -7,7 +7,7 @@
 
 body {
     background: #000000;
-    color: #00ff00;
+    color: #e6e6e6;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -22,20 +22,20 @@ body {
 
 .window {
     background: #000000;
-    border: 1px solid #00ff00;
+    border: 1px solid #b3b3b3;
     padding: 30px;
 }
 
 h1 {
     font-size: 1.5rem;
-    color: #00ff00;
+    color: #e6e6e6;
     margin-bottom: 10px;
     text-align: center;
     letter-spacing: 2px;
 }
 
 .subtitle {
-    color: #00aa00;
+    color: #b3b3b3;
     font-size: 0.9rem;
     text-align: center;
     margin-bottom: 30px;
@@ -49,7 +49,7 @@ h1 {
 label {
     display: block;
     font-weight: bold;
-    color: #00ff00;
+    color: #e6e6e6;
     margin-bottom: 8px;
     font-size: 0.9rem;
 }
@@ -59,8 +59,8 @@ textarea {
     min-height: 120px;
     padding: 15px;
     background: #000000;
-    color: #00ff00;
-    border: 1px solid #00aa00;
+    color: #e6e6e6;
+    border: 1px solid #b3b3b3;
     font-family: inherit;
     font-size: 0.9rem;
     line-height: 1.4;
@@ -69,7 +69,7 @@ textarea {
 }
 
 textarea:focus {
-    border-color: #00ff00;
+    border-color: #e6e6e6;
 }
 
 textarea::placeholder {
@@ -83,7 +83,7 @@ textarea::placeholder {
     flex-wrap: wrap;
     margin-bottom: 30px;
     padding: 20px;
-    border: 1px solid #00aa00;
+    border: 1px solid #b3b3b3;
 }
 
 .control-group {
@@ -96,31 +96,31 @@ textarea::placeholder {
 select {
     padding: 8px 12px;
     background: #000000;
-    color: #00ff00;
-    border: 1px solid #00aa00;
+    color: #e6e6e6;
+    border: 1px solid #b3b3b3;
     font-family: inherit;
     font-size: 0.9rem;
     outline: none;
 }
 
 select:focus {
-    border-color: #00ff00;
+    border-color: #e6e6e6;
 }
 
 select:disabled {
     color: #808080;
-    border-color: #404040;
+    border-color: #808080;
 }
 
 option {
     background: #000000;
-    color: #00ff00;
+    color: #e6e6e6;
 }
 
 button {
     background: #000000;
-    color: #00ff00;
-    border: 1px solid #00ff00;
+    color: #e6e6e6;
+    border: 1px solid #e6e6e6;
     padding: 10px 20px;
     font-size: 0.9rem;
     font-family: inherit;
@@ -130,13 +130,13 @@ button {
 }
 
 button:hover:not(:disabled) {
-    background: #00ff00;
+    background: #e6e6e6;
     color: #000000;
 }
 
 button:disabled {
     color: #808080;
-    border-color: #404040;
+    border-color: #808080;
     cursor: not-allowed;
 }
 
@@ -147,7 +147,7 @@ button:disabled {
 }
 
 .status {
-    border-top: 1px solid #00aa00;
+    border-top: 1px solid #b3b3b3;
     padding-top: 15px;
     margin-top: 20px;
 }
@@ -173,9 +173,9 @@ button:disabled {
 
 .success {
     background: #000000;
-    color: #00ff00;
+    color: #e6e6e6;
     padding: 10px 15px;
-    border: 1px solid #00ff00;
+    border: 1px solid #e6e6e6;
     margin: 10px 0;
     font-size: 0.9rem;
 }

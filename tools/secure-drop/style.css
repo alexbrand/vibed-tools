@@ -6,7 +6,7 @@
 
 body {
     background-color: #000000;
-    color: #00ff00;
+    color: #e6e6e6;
     font-family: Monaco, Menlo, 'Ubuntu Mono', monospace;
     font-size: 14px;
     line-height: 1.4;
@@ -22,7 +22,7 @@ body {
 header {
     text-align: center;
     margin-bottom: 40px;
-    border-bottom: 1px solid #00aa00;
+    border-bottom: 1px solid #b3b3b3;
     padding-bottom: 20px;
 }
 
@@ -34,18 +34,18 @@ h1 {
 }
 
 .subtitle {
-    color: #00aa00;
+    color: #b3b3b3;
     font-size: 12px;
 }
 
 .section {
     margin-bottom: 30px;
-    border: 1px solid #00aa00;
+    border: 1px solid #b3b3b3;
     padding: 20px;
 }
 
 h2 {
-    color: #00ff00;
+    color: #e6e6e6;
     font-size: 16px;
     margin-bottom: 20px;
     font-weight: bold;
@@ -58,7 +58,7 @@ h2 {
 label {
     display: block;
     margin-bottom: 5px;
-    color: #00aa00;
+    color: #b3b3b3;
     font-size: 12px;
 }
 
@@ -67,8 +67,8 @@ input[type="password"],
 input[type="text"] {
     width: 100%;
     background-color: #000000;
-    border: 1px solid #00aa00;
-    color: #00ff00;
+    border: 1px solid #b3b3b3;
+    color: #e6e6e6;
     padding: 8px;
     font-family: Monaco, Menlo, 'Ubuntu Mono', monospace;
     font-size: 12px;
@@ -87,8 +87,8 @@ input::placeholder {
 
 .terminal-btn {
     background-color: #000000;
-    color: #00ff00;
-    border: 1px solid #00aa00;
+    color: #e6e6e6;
+    border: 1px solid #e6e6e6;
     padding: 10px 20px;
     font-family: Monaco, Menlo, 'Ubuntu Mono', monospace;
     font-size: 12px;
@@ -98,7 +98,7 @@ input::placeholder {
 }
 
 .terminal-btn:hover {
-    background-color: #00aa00;
+    background-color: #e6e6e6;
     color: #000000;
 }
 
@@ -110,8 +110,8 @@ input::placeholder {
 .download-item {
     margin-bottom: 15px;
     padding: 10px;
-    border: 1px solid #00aa00;
-    background-color: rgba(0, 170, 0, 0.1);
+    border: 1px solid #b3b3b3;
+    background-color: rgba(179, 179, 179, 0.1);
 }
 
 .download-item p {
@@ -120,26 +120,26 @@ input::placeholder {
 }
 
 .download-link {
-    color: #00ff00;
+    color: #e6e6e6;
     text-decoration: none;
     font-weight: bold;
     font-size: 12px;
     display: inline-block;
     margin-top: 10px;
     padding: 5px 10px;
-    border: 1px solid #00aa00;
+    border: 1px solid #b3b3b3;
     background-color: #000000;
     transition: all 0.2s;
 }
 
 .download-link:hover {
-    background-color: #00aa00;
+    background-color: #e6e6e6;
     color: #000000;
 }
 
 .status-display {
-    background-color: rgba(0, 170, 0, 0.1);
-    border: 1px solid #00aa00;
+    background-color: rgba(179, 179, 179, 0.1);
+    border: 1px solid #b3b3b3;
     padding: 15px;
     font-size: 12px;
     min-height: 50px;
@@ -160,7 +160,7 @@ input::placeholder {
 footer {
     margin-top: 40px;
     text-align: center;
-    border-top: 1px solid #00aa00;
+    border-top: 1px solid #b3b3b3;
     padding-top: 20px;
 }
 
@@ -193,8 +193,8 @@ footer p {
 .decrypt-output {
     margin-top: 15px;
     padding: 15px;
-    border: 1px solid #00aa00;
-    background-color: rgba(0, 170, 0, 0.05);
+    border: 1px solid #b3b3b3;
+    background-color: rgba(179, 179, 179, 0.05);
 }
 
 .share-section,
@@ -217,8 +217,8 @@ footer p {
 
 .copy-btn {
     background-color: #000000;
-    color: #00ff00;
-    border: 1px solid #00aa00;
+    color: #e6e6e6;
+    border: 1px solid #b3b3b3;
     padding: 8px 12px;
     font-family: Monaco, Menlo, 'Ubuntu Mono', monospace;
     font-size: 10px;
@@ -229,7 +229,7 @@ footer p {
 }
 
 .copy-btn:hover {
-    background-color: #00aa00;
+    background-color: #e6e6e6;
     color: #000000;
 }
 
@@ -248,13 +248,13 @@ footer p {
 /* Focus states */
 input:focus,
 textarea:focus {
-    outline: 1px solid #00ff00;
+    outline: 1px solid #e6e6e6;
     outline-offset: 2px;
 }
 
 .terminal-btn:focus,
 .copy-btn:focus {
-    outline: 1px solid #00ff00;
+    outline: 1px solid #e6e6e6;
     outline-offset: 2px;
 }
 
