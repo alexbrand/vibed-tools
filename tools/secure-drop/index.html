@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECURE-DROP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SECURE-DROP v1.0</h1>
+            <p class="subtitle">$ encrypted file transfer protocol</p>
+        </header>
+
+        <div class="section">
+            <h2>> ENCRYPT & SHARE</h2>
+            <div class="input-group">
+                <label for="text-input">$ paste text to encrypt:</label>
+                <textarea id="text-input" placeholder="enter text to encrypt..."></textarea>
+            </div>
+            <div class="input-group">
+                <label for="secret">$ encryption secret:</label>
+                <input type="password" id="secret" placeholder="enter secret key">
+            </div>
+            <button id="encrypt-btn" class="terminal-btn">[ENCRYPT TEXT]</button>
+            <div id="encrypt-result" class="result"></div>
+        </div>
+
+        <div class="section">
+            <h2>> DECRYPT & RECEIVE</h2>
+            <div class="input-group">
+                <label for="decrypt-secret">$ decryption secret:</label>
+                <input type="password" id="decrypt-secret" placeholder="enter secret key">
+            </div>
+            <button id="decrypt-btn" class="terminal-btn">[DECRYPT FROM URL]</button>
+            <div class="input-group">
+                <label for="encrypted-data">$ or paste encrypted data:</label>
+                <textarea id="encrypted-data" placeholder="paste encrypted data here..."></textarea>
+            </div>
+            <button id="decrypt-manual-btn" class="terminal-btn">[DECRYPT MANUAL]</button>
+            <div id="decrypt-result" class="result"></div>
+        </div>
+
+        <div class="section">
+            <h2>> STATUS</h2>
+            <div id="status" class="status-display">
+                ready for operation...
+            </div>
+        </div>
+
+        <footer>
+            <p class="muted">>> all encryption performed client-side using AES-256-GCM</p>
+            <p class="muted">>> encrypted data stored in URL fragment (never sent to server)</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
