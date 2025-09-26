@@ -170,15 +170,20 @@ class MarkdownTableSorter {
     }
 
     extractTextFromMarkdown(value) {
-        const str = String(value).trim();
+        let str = String(value).trim();
 
         // Match markdown links [text](url) and extract the text part
         const linkMatch = str.match(/^\[([^\]]+)\]\([^)]+\)$/);
         if (linkMatch) {
-            return linkMatch[1];
+            str = linkMatch[1];
         }
 
-        // If not a markdown link, return as is
+        // Remove markdown formatting: **bold**, *italic*, `code`, ~~strikethrough~~
+        str = str.replace(/\*\*(.*?)\*\*/g, '$1')  // **bold**
+                 .replace(/\*(.*?)\*/g, '$1')      // *italic*
+                 .replace(/`(.*?)`/g, '$1')        // `code`
+                 .replace(/~~(.*?)~~/g, '$1');     // ~~strikethrough~~
+
         return str;
     }
 
