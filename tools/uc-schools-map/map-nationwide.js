@@ -37,7 +37,7 @@ function createSchoolMarker(school) {
     const coords = school.coordinates;
 
     const marker = L.circleMarker([coords[0], coords[1]], {
-        radius: 6,
+        radius: 8,
         fillColor: schoolInfo.color,
         color: '#fff',
         weight: 1,
@@ -61,14 +61,14 @@ function createSchoolMarker(school) {
     // Add hover effect
     marker.on('mouseover', function() {
         this.setStyle({
-            radius: 8,
+            radius: 10,
             weight: 2
         });
     });
 
     marker.on('mouseout', function() {
         this.setStyle({
-            radius: 6,
+            radius: 8,
             weight: 1
         });
     });
