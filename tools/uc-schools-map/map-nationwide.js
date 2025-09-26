@@ -52,7 +52,6 @@ function createSchoolMarker(school) {
             <p><strong>City:</strong> ${school.city}</p>
             <p><strong>State:</strong> ${school.state}</p>
             <p><strong>Type:</strong> ${schoolInfo.type}</p>
-            <p><strong>Coordinates:</strong> ${coords[0].toFixed(4)}, ${coords[1].toFixed(4)}</p>
         </div>
     `;
 
