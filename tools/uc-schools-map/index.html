@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Olympics Unified Champion Schools Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+
+        .school-popup {
+            max-width: 250px;
+        }
+
+        .school-popup h3 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+            font-size: 16px;
+        }
+
+        .school-popup p {
+            margin: 5px 0;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .controls {
+            position: absolute;
+            top: 90px;
+            right: 10px;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+            max-width: 250px;
+        }
+
+        .legend {
+            margin-top: 15px;
+        }
+
+        .legend h4 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+
+        .legend-item {
+            margin: 5px 0;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .legend-item input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .legend-item label {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            z-index: 2000;
+        }
+
+        .state-filter {
+            margin-bottom: 15px;
+        }
+
+        .state-filter select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .stats {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .view-controls {
+            margin-bottom: 15px;
+        }
+
+        .view-controls button {
+            margin: 2px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .view-controls button.active {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        .banner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            color: #2c3e50;
+            padding: 15px 20px;
+            text-align: center;
+            z-index: 1001;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .banner h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .banner a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 5px;
+            display: inline-block;
+        }
+
+        .banner a:hover {
+            text-decoration: underline;
+        }
+
+        #map {
+            margin-top: 80px;
+            height: calc(100vh - 80px);
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <h1>Special Olympics Unified Champion Schools</h1>
+        <a href="https://www.specialolympics.org/what-we-do/unified-champion-schools/banner-recognition-program" target="_blank">Learn more about the Banner Unified Champion Schools Program</a>
+    </div>
+
+    <div id="loading" class="loading">
+        <h3>Loading Schools Map...</h3>
+        <p>Loading school locations...</p>
+    </div>
+
+    <div id="map"></div>
+
+    <div class="controls">
+        <div class="state-filter">
+            <select id="state-selector">
+                <option value="">All States</option>
+            </select>
+        </div>
+
+
+        <div class="stats" id="stats">
+            <div>Total Schools: <span id="total-count">0</span></div>
+            <div>Visible Schools: <span id="visible-count">0</span></div>
+        </div>
+
+        <div class="legend">
+            <h4>School Types (click to toggle)</h4>
+            <div class="legend-item" data-type="Elementary">
+                <input type="checkbox" id="type-elementary" checked>
+                <div class="legend-color" style="background-color: #e74c3c;"></div>
+                <label for="type-elementary">Elementary</label>
+            </div>
+            <div class="legend-item" data-type="Middle/K-8">
+                <input type="checkbox" id="type-middle" checked>
+                <div class="legend-color" style="background-color: #f39c12;"></div>
+                <label for="type-middle">Middle/K-8</label>
+            </div>
+            <div class="legend-item" data-type="High School">
+                <input type="checkbox" id="type-high" checked>
+                <div class="legend-color" style="background-color: #3498db;"></div>
+                <label for="type-high">High School</label>
+            </div>
+            <div class="legend-item" data-type="University">
+                <input type="checkbox" id="type-university" checked>
+                <div class="legend-color" style="background-color: #9b59b6;"></div>
+                <label for="type-university">University</label>
+            </div>
+            <div class="legend-item" data-type="Other">
+                <input type="checkbox" id="type-other" checked>
+                <div class="legend-color" style="background-color: #27ae60;"></div>
+                <label for="type-other">Other</label>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="schools-with-coordinates.js"></script>
+    <script src="nationwide-schools-with-coordinates.js"></script>
+    <script src="map-nationwide.js"></script>
+</body>
+</html>
