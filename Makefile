@@ -12,13 +12,16 @@ PLATFORM ?= linux/amd64
 # Default target
 .DEFAULT_GOAL := build
 
-# Version increment function
+# Manual version increment (for releases)
 .PHONY: increment-version
 increment-version:
 	@current=$$(cat VERSION); \
 	new_version=$$((current + 1)); \
 	echo $$new_version > VERSION; \
-	echo "Version incremented from $$current to $$new_version"
+	git add VERSION; \
+	git commit -m "Bump version to $$new_version"; \
+	git push; \
+	echo "Version incremented from $$current to $$new_version, committed and pushed"
 
 # Setup buildx builder if it doesn't exist
 .PHONY: setup-buildx
@@ -35,7 +38,7 @@ build:
 
 # Build and push multi-arch image using buildx
 .PHONY: buildx-push
-buildx-push: setup-buildx increment-version
+buildx-push: setup-buildx
 	@echo "Building and pushing with tags: $(FULL_IMAGE), $(VERSION_IMAGE), $(REPO):latest"
 	docker buildx build \
 		--platform $(PLATFORM) \

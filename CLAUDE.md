@@ -50,9 +50,16 @@ The common.css provides all base terminal aesthetics. Tool-specific style.css sh
 ```bash
 make push                    # Build and push container using buildx
 make build                   # Local build for testing
+make increment-version       # Increment version number and commit/push to git
 make info                    # Show current build configuration
 make clean                   # Remove local images
 ```
+
+### Version Management
+Version increments are decoupled from build/push operations:
+- **Local development**: Use `make build` and `make push` without version changes
+- **Releases**: Use `make increment-version` manually when ready to bump version
+- **CI/CD**: Automated pipelines handle version increments as needed
 
 ### Build Variables
 ```bash
