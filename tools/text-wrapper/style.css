@@ -1,0 +1,35 @@
+/* Text Wrapper Tool - Specific Overrides */
+
+.window {
+    max-width: 1000px;
+}
+
+textarea {
+    min-height: 200px;
+}
+
+#outputText {
+    min-height: 250px;
+}
+
+.input-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox-label {
+    color: #e6e6e6;
+    font-size: 0.9rem;
+}
+
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #e6e6e6;
+}
+
+#wrapLength {
+    max-width: 100px;
+}
