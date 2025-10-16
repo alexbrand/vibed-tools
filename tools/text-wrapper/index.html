@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Wrapper - Vibed Tool</title>
+    <link rel="stylesheet" href="/common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="terminal">
+        <div class="window">
+            <div class="nav-header">
+                <a href="/" class="back-link">← BACK TO TOOLS</a>
+            </div>
+            <h1>TEXT WRAPPER</h1>
+            <p class="subtitle">Wrap text to a specific line length with syntax awareness</p>
+
+            <div class="input-section">
+                <div class="input-group">
+                    <label for="wrapLength">WRAP LENGTH (CHARACTERS):</label>
+                    <div class="input-line">
+                        <span class="prompt">$ </span>
+                        <input type="text" id="wrapLength" value="100" maxlength="4">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="inputText">INPUT TEXT:</label>
+                    <textarea id="inputText" placeholder="Paste or type text here to wrap..."></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label>
+                        <input type="checkbox" id="syntaxAware" checked>
+                        <span class="checkbox-label">Syntax-aware (preserve indentation, don't break URLs)</span>
+                    </label>
+                </div>
+
+                <div class="controls">
+                    <button id="wrapBtn">[WRAP TEXT]</button>
+                    <button id="clearBtn">[CLEAR]</button>
+                </div>
+            </div>
+
+            <div id="outputSection" class="output-section hidden">
+                <div class="output">
+                    <div class="input-line">
+                        <span class="prompt">> </span>
+                        <span>OUTPUT</span>
+                        <button class="copy-btn" id="copyBtn">[COPY]</button>
+                    </div>
+                    <textarea id="outputText" readonly></textarea>
+                </div>
+            </div>
+
+            <div class="status">
+                <p>TOOL_URL: tools.apps.alexbrand.dev/text-wrapper/</p>
+                <p>STATUS: ONLINE</p>
+                <p>DEFAULT_WRAP: 100 CHARS</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
